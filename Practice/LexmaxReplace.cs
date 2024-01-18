@@ -24,7 +24,7 @@ namespace Practice
                 }
                 else largestString.Append(c[curIndexOfT--]);
             }
-            for (; i < s.Length; i++) largestString.Append(s[i]);
+            largestString.Append(s.Substring(i));
             return largestString.ToString();
         }
     }

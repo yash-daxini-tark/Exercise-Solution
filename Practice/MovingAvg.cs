@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,18 +14,19 @@ namespace Practice
         public double difference(int k, double[] data)
         {
             List<double> averages = new List<double>();
-            for (int i = 0; i <= data.Length - k; i++)
+            double maxSum = 0, minSum = 0, curSum = 0;
+            curSum = data.Take(k).Sum();
+            maxSum = curSum;
+            minSum = curSum;
+            for (int i = k; i <= data.Length - 1; i++)
             {
-                double curSum = 0;
-                for (int j = i; j < i + k; j++)
-                {
-                    curSum += data[j];
-                }
-                curSum /= k;
-                averages.Add(curSum);
+                curSum -= data[i - k];
+                curSum += data[i];
+                maxSum = Math.Max(maxSum, curSum);
+                minSum = Math.Min(minSum, curSum);
             }
-            averages.Sort();
-            return averages[averages.Count - 1] - averages[0];
+            maxSum /= k; minSum /= k;
+            return maxSum - minSum;
         }
     }
 

@@ -23,9 +23,9 @@ namespace Practice
             {
                 string cur = slices[i];
                 int indexOfThread = Convert.ToInt32(cur.Split(" ")[0]);
-                int positionInThread = Convert.ToInt32(cur.Split(" ")[1]);
+                int lenghtToTakeInThread = Convert.ToInt32(cur.Split(" ")[1]);
                 int prevIndexInThread = map[indexOfThread];
-                while (positionInThread-- > 0)
+                while (lenghtToTakeInThread-- > 0)
                 {
                     outputString.Append(threads[indexOfThread][prevIndexInThread]);
                     prevIndexInThread++;

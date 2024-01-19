@@ -12,31 +12,26 @@ namespace Practice
     {
         public int impossible(string collection, string[] address)
         {
-            Dictionary<char, int> countOfCharacters = new Dictionary<char, int>();
+            Dictionary<char, int> countOfCharactersInCollection = new Dictionary<char, int>();
             foreach (char c in collection)
             {
-                if (!countOfCharacters.ContainsKey(c))
+                if (!countOfCharactersInCollection.ContainsKey(c))
                 {
-                    countOfCharacters[c] = 1;
+                    countOfCharactersInCollection[c] = 1;
                 }
-                else countOfCharacters[c] = countOfCharacters[c] + 1;
+                else countOfCharactersInCollection[c] = countOfCharactersInCollection[c] + 1;
             }
             int impossibleAddresses = 0;
             foreach (string s in address)
             {
-                Dictionary<char, int> mapForEachString = new Dictionary<char, int>();
-                foreach (char c in s)
+                var charactersAndItsCount = from char ch in s.ToCharArray()
+                                            group ch by ch;
+                foreach (var ch in charactersAndItsCount)
                 {
-                    if (!mapForEachString.ContainsKey(c))
-                    {
-                        mapForEachString[c] = 1;
-                    }
-                    else mapForEachString[c] = mapForEachString[c] + 1;
-                }
-                foreach (char key in mapForEachString.Keys)
-                {
+                    var key = ch.Key;
+                    var value = ch.Count();
                     if (key == ' ') continue;
-                    if (!countOfCharacters.ContainsKey(key) || countOfCharacters[key] < mapForEachString[key])
+                    if (!countOfCharactersInCollection.ContainsKey(key) || countOfCharactersInCollection[key] < value)
                     {
                         impossibleAddresses++;
                         break;

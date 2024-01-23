@@ -11,7 +11,7 @@ namespace Practice
     public class DukeOnChessBoard
     {
         static StringBuilder ans;
-        public void doRecursion(int i, int j, int n, HashSet<string> set, Dictionary<int, char> map, bool[,] visited, string cur)
+        public void findAllPossiblePaths(int i, int j, int n, HashSet<string> set, Dictionary<int, char> map, bool[,] visited, string cur)
         {
             if (i < 1 || i > n || j < 1 || j > n || visited[i, j])
             {
@@ -21,10 +21,10 @@ namespace Practice
             }
             visited[i, j] = true;
             cur += map[i] + "" + j + '-';
-            doRecursion(i + 1, j, n, set, map, visited, cur);
-            doRecursion(i, j + 1, n, set, map, visited, cur);
-            doRecursion(i, j - 1, n, set, map, visited, cur);
-            doRecursion(i - 1, j, n, set, map, visited, cur);
+            findAllPossiblePaths(i + 1, j, n, set, map, visited, cur);
+            findAllPossiblePaths(i, j + 1, n, set, map, visited, cur);
+            findAllPossiblePaths(i, j - 1, n, set, map, visited, cur);
+            findAllPossiblePaths(i - 1, j, n, set, map, visited, cur);
         }
         public string dukePath(int n, string initPosition)
         {
@@ -46,7 +46,7 @@ namespace Practice
 
             HashSet<string> set = new HashSet<string>();
 
-            doRecursion(initX, initY, n, set, map, visited, new string(""));
+            findAllPossiblePaths(initX, initY, n, set, map, visited, new string(""));
 
             List<string> list = new List<string>(set);
 

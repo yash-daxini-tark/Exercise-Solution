@@ -22,7 +22,7 @@ namespace Practice
                 bool[] curStringBits = new bool[n];
                 for (int j = 0; j < n; j++)
                 {
-                    curStringBits[j] = board[i][j] == '1' ? true : false;
+                    curStringBits[j] = board[i][j] == '1';
                 }
                 for (int j = 0; j < n; j++)
                 {

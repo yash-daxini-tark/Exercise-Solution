@@ -10,7 +10,7 @@ namespace Practice
 
     public class LargestSubsequence
     {
-        public void doRecursion(string s, int i, HashSet<string> set, StringBuilder cur)
+        public void findPossibleSubsequence(string s, int i, HashSet<string> set, StringBuilder cur)
         {
             if (i == s.Length)
             {
@@ -18,9 +18,9 @@ namespace Practice
                 return;
             }
             cur.Append(s[i]);
-            doRecursion(s, i + 1, set, cur);
+            findPossibleSubsequence(s, i + 1, set, cur);
             cur.Remove(cur.Length - 1, 1);
-            doRecursion(s, i + 1, set, cur);
+            findPossibleSubsequence(s, i + 1, set, cur);
         }
         public string getLargest(String s)
         {
@@ -40,7 +40,7 @@ namespace Practice
             HashSet<string> set = new HashSet<string>();
             foreach (int i in indexesOfMaxCharacter)
             {
-                doRecursion(s, i, set, new StringBuilder(""));
+                findPossibleSubsequence(s, i, set, new StringBuilder(""));
             }
             List<string> list = new List<string>(set);
             list.Sort();

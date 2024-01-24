@@ -16,17 +16,17 @@ namespace Practice
             int score = 0;
             foreach (string str in list)
             {
-                if (countOfCharacters[str] == 1)
+                switch (countOfCharacters[str])
                 {
-                    score += 3;
-                }
-                else if (countOfCharacters[str] == 2)
-                {
-                    score += 2;
-                }
-                else
-                {
-                    score += 1;
+                    case 1:
+                        score += 3;
+                        break;
+                    case 2:
+                        score += 2;
+                        break;
+                    case 3:
+                        score += 1;
+                        break;
                 }
             }
             return score;

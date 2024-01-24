@@ -10,59 +10,47 @@ namespace Practice
 
     public class DukeOnChessBoard
     {
-        static StringBuilder ans;
-        public void doRecursion(int i, int j, int n, HashSet<string> set, Dictionary<int, char> map, bool[,] visited, string cur)
+        static StringBuilder lexicographicallyLargetstPath = new StringBuilder();
+        public char giveCharacterFromIndex(int index)
         {
-            if (i < 1 || i > n || j < 1 || j > n || visited[i, j])
+            return (char)(index + 97);
+        }
+        public bool validatePosition(int i, int j, int n, bool[,] visited)
+        {
+            return i < n && j < n && i >= 0 && j >= 0 && !visited[i, j];
+        }
+        public string findLexicographicallyLargestPath(int i, int j, int n, bool[,] visited, StringBuilder lexicographicallyLargetstPath)
+        {
+            while (true)
             {
-                set.Add(cur.ToString());
-                cur = new string("");
-                return;
+                if (validatePosition(i + 1, j, n, visited)) i++;
+                else if (validatePosition(i, j + 1, n, visited)) j++;
+                else if (validatePosition(i, j - 1, n, visited)) j--;
+                else if (validatePosition(i - 1, j, n, visited)) i--;
+                else break;
+                lexicographicallyLargetstPath.Append(giveCharacterFromIndex(i) + "" + (j + 1) + "-");
+                visited[i, j] = true;
             }
-            visited[i, j] = true;
-            cur += map[i] + "" + j + '-';
-            doRecursion(i + 1, j, n, set, map, visited, cur);
-            doRecursion(i, j + 1, n, set, map, visited, cur);
-            doRecursion(i, j - 1, n, set, map, visited, cur);
-            doRecursion(i - 1, j, n, set, map, visited, cur);
+            return lexicographicallyLargetstPath.ToString();
         }
         public string dukePath(int n, string initPosition)
         {
-            int initX = (int)initPosition[0];
-            initX -= 96;
-            int initY = initPosition[1] - '0';
-            Dictionary<int, char> map = new Dictionary<int, char>();
-            for (int i = 1; i <= n; i++)
+            int initX = (int)initPosition[0] - 97;
+            int initY = initPosition[1] - '0' - 1;
+            bool[,] visited = new bool[n, n];
+            lexicographicallyLargetstPath = new StringBuilder(initPosition + "-");
+            visited[initX, initY] = true;
+
+            findLexicographicallyLargestPath(initX, initY, n, visited, lexicographicallyLargetstPath);
+
+            if (lexicographicallyLargetstPath.Length == 0) return lexicographicallyLargetstPath.ToString();
+            lexicographicallyLargetstPath.Remove(lexicographicallyLargetstPath.Length - 1, 1);
+
+            if (lexicographicallyLargetstPath.Length > 40)
             {
-                map.Add(i, (char)(i + 96));
+                lexicographicallyLargetstPath = new StringBuilder(lexicographicallyLargetstPath.ToString().Substring(0, 20) + "..." + lexicographicallyLargetstPath.ToString().Substring(lexicographicallyLargetstPath.Length - 20));
             }
-            ans = new StringBuilder();
-            bool[,] visited = new bool[n + 1, n + 1];
-            for (int i = 0; i <= n; i++)
-            {
-                visited[0, i] = true;
-                visited[i, 0] = true;
-            }
-
-            HashSet<string> set = new HashSet<string>();
-
-            doRecursion(initX, initY, n, set, map, visited, new string(""));
-
-            List<string> list = new List<string>(set);
-
-            list.Sort();
-
-            ans = new StringBuilder(list[list.Count - 1]);
-            if (ans.Length == 0) return ans.ToString();
-
-            string tempStr = new string(ans.ToString().Substring(0, ans.Length - 1));
-
-            if (tempStr.Length > 40)
-            {
-                ans = new StringBuilder(tempStr.ToString().Substring(0, 20) + "..." + tempStr.ToString().Substring(tempStr.Length - 20));
-            }
-            else ans = new StringBuilder(tempStr);
-            return ans.ToString();
+            return lexicographicallyLargetstPath.ToString();
         }
     }
 

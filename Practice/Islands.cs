@@ -10,6 +10,10 @@ namespace Practice
 
     public class Islands
     {
+        public bool validatePosition(int x, int y, int n, int m, string[] kingdom)
+        {
+            return x >= 0 && y >= 0 && x < n && y < m && kingdom[x][y] == '.';
+        }
         public int beachLength(string[] kingdom)
         {
             int countOfBeaches = 0;
@@ -22,22 +26,22 @@ namespace Practice
                     int c = 0;
                     if (kingdom[i][j] == '#' && (i & 1) == 1)
                     {
-                        if (i - 1 >= 0 && kingdom[i - 1][j] == '.') c++;
-                        if (i - 1 >= 0 && j + 1 < m && kingdom[i - 1][j + 1] == '.') c++;
-                        if (j - 1 >= 0 && kingdom[i][j - 1] == '.') c++;
-                        if (j + 1 < m && kingdom[i][j + 1] == '.') c++;
-                        if (i + 1 < n && j < m && kingdom[i + 1][j] == '.') c++;
-                        if (i + 1 < n && j + 1 < m && kingdom[i + 1][j + 1] == '.') c++;
+                        if (validatePosition(i - 1, j, n, m, kingdom)) c++;
+                        if (validatePosition(i - 1, j + 1, n, m, kingdom)) c++;
+                        if (validatePosition(i, j - 1, n, m, kingdom)) c++;
+                        if (validatePosition(i, j + 1, n, m, kingdom)) c++;
+                        if (validatePosition(i + 1, j, n, m, kingdom)) c++;
+                        if (validatePosition(i + 1, j + 1, n, m, kingdom)) c++;
                         countOfBeaches += c;
                     }
                     else if (kingdom[i][j] == '#')
                     {
-                        if (i - 1 >= 0 && j - 1 >= 0 && kingdom[i - 1][j - 1] == '.') c++;
-                        if (i - 1 >= 0 && kingdom[i - 1][j] == '.') c++;
-                        if (j - 1 >= 0 && kingdom[i][j - 1] == '.') c++;
-                        if (j + 1 < m && kingdom[i][j + 1] == '.') c++;
-                        if (i + 1 < n && j - 1 >= 0 && kingdom[i + 1][j - 1] == '.') c++;
-                        if (i + 1 < n && j < m && kingdom[i + 1][j] == '.') c++;
+                        if (validatePosition(i - 1, j - 1, n, m, kingdom)) c++;
+                        if (validatePosition(i - 1, j, n, m, kingdom)) c++;
+                        if (validatePosition(i, j - 1, n, m, kingdom)) c++;
+                        if (validatePosition(i, j + 1, n, m, kingdom)) c++;
+                        if (validatePosition(i + 1, j - 1, n, m, kingdom)) c++;
+                        if (validatePosition(i + 1, j, n, m, kingdom)) c++;
                         countOfBeaches += c;
                     }
                 }

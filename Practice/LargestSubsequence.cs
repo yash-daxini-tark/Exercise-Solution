@@ -24,27 +24,17 @@ namespace Practice
         }
         public string getLargest(String s)
         {
-            List<int> indexesOfMaxCharacter = new List<int>();
-            char max = s[0];
-            for (int i = 1; i < s.Length; i++)
-            {
-                if (s[i] > max)
-                {
-                    max = s[i];
-                }
-            }
-            for (int i = 0; i < s.Length; i++)
-            {
-                if (s[i] == max) indexesOfMaxCharacter.Add(i);
-            }
+            char max = s.ToCharArray().Max();
+            List<int> indexesOfMaxCharacter = (from char ch in s.ToCharArray()
+                                               where ch == max
+                                               select s.IndexOf(ch)).ToList();
+
             HashSet<string> set = new HashSet<string>();
             foreach (int i in indexesOfMaxCharacter)
             {
                 findPossibleSubsequence(s, i, set, new StringBuilder(""));
             }
-            List<string> list = new List<string>(set);
-            list.Sort();
-            return list[list.Count - 1];
+            return set.Max();
         }
     }
 

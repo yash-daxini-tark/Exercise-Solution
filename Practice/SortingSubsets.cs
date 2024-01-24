@@ -11,16 +11,11 @@ namespace Practice
     {
         public int getMinimalSize(int[] a)
         {
-            List<int> sortedList = new List<int>();
-            for (int i = 0; i < a.Length; i++)
-            {
-                sortedList.Add(a[i]);
-            }
-            Array.Sort(a, 0, a.Length);
+            int[] sortedArray = a.OrderBy((number) => number).ToArray();
             int smallestSizeOfSet = 0;
             for (int i = 0; i < a.Length; ++i)
             {
-                if (a[i] != sortedList[i]) { smallestSizeOfSet++; }
+                if (a[i] != sortedArray[i]) { smallestSizeOfSet++; }
             }
             return smallestSizeOfSet;
         }

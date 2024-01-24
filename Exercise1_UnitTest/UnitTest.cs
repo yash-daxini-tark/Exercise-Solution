@@ -279,6 +279,7 @@ namespace Exercise1_UnitTest
             Assert.AreEqual(turningLightOn.minFlips(["1111111", "1111111", "1111111"]), 0);
             Assert.AreEqual(turningLightOn.minFlips(["01001"]), 3);
             Assert.AreEqual(turningLightOn.minFlips(["0101", "1010", "0101", "1010"]), 7);
+            Assert.AreEqual(turningLightOn.minFlips(["1111", "1010", "1111", "1010"]), 16);
         }
     }
     #endregion

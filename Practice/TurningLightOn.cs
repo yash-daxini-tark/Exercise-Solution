@@ -24,13 +24,10 @@ namespace Practice
                 {
                     curStringBits[j] = board[i][j] == '1';
                 }
-                for (int j = 0; j < n; j++)
-                {
-                    curStringBits[j] = ((operations[j] & 1) == 0 ? curStringBits[j] : !curStringBits[j]);
-                }
                 isZero = true;
                 for (int j = n - 1; j >= 0; j--)
                 {
+                    curStringBits[j] = ((operations[j] & 1) == 0 ? curStringBits[j] : !curStringBits[j]);
                     if (isZero && !curStringBits[j])
                     {
                         curOperations++;

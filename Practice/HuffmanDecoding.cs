@@ -11,27 +11,26 @@ namespace Practice
     {
         public string decode(string archive, string[] dictionary)
         {
-            Dictionary<string, int> encodedStrings = new Dictionary<string, int>();
+            Dictionary<string, char> encodedStrings = new Dictionary<string, char>();
             for (int i = 0; i < dictionary.Length; i++)
             {
-                encodedStrings.Add(dictionary[i], i + 1);
+                encodedStrings.Add(dictionary[i], (char)(65 + i));
             }
 
-            StringBuilder stringTillIthIndex = new StringBuilder();
+            int lastDecodedIndex = 0;
             StringBuilder decodedString = new StringBuilder();
+            int sizeOfDictionary = archive.Length;
 
-            for (int i = 0; i < archive.Length; i++)
+            for (int i = 0; i < sizeOfDictionary; i++)
             {
-                stringTillIthIndex.Append(archive[i]);
-                if (encodedStrings.ContainsKey(stringTillIthIndex.ToString()))
+                string presetStringToDecode = (i == sizeOfDictionary - 1 ? archive.Substring(lastDecodedIndex) : archive.Substring(lastDecodedIndex, (i - lastDecodedIndex + 1)));
+                if (encodedStrings.ContainsKey(presetStringToDecode))
                 {
-                    decodedString.Append((char)(64 + encodedStrings[stringTillIthIndex.ToString()]));
-                    stringTillIthIndex = new StringBuilder();
+                    decodedString.Append(encodedStrings[presetStringToDecode]);
+                    lastDecodedIndex = i + 1;
                 }
             }
-
             return decodedString.ToString();
-
         }
     }
     #endregion

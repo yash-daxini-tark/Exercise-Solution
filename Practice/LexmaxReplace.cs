@@ -13,8 +13,9 @@ namespace Practice
         {
             StringBuilder largestString = new StringBuilder("");
             int i = 0;
-            char[] c = t.ToCharArray();
-            Array.Sort(c);
+            char[] c = (from char ch in t.ToCharArray()
+                        orderby ch ascending
+                        select ch).ToArray();
             int curIndexOfT = c.Length - 1;
             for (; i < s.Length && curIndexOfT >= 0; i++)
             {

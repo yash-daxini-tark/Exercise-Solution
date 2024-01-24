@@ -12,12 +12,7 @@ namespace Practice
     {
         public int solve(string s)
         {
-            int openBrackets = 0, closeBrackets = 0;
-            foreach (char c in s)
-            {
-                if (c == '(') openBrackets++;
-                else closeBrackets++;
-            }
+            int openBrackets = s.ToCharArray().Count((bracket) => bracket == '('), closeBrackets = s.ToCharArray().Count((bracket) => bracket == ')');
             int min = Math.Min(openBrackets, closeBrackets);
             return min * (min + 1) / 2;
         }
